@@ -1,0 +1,138 @@
+function toggleDataCheckedValue () {
+  let checkedtodos = todos.filter(elem => elem.checked === true)
+  if (checkedtodos.length !== todos.length) {
+    todos.map(elem => (elem.checked = true))
+  } else {
+    todos.map(elem => (elem.checked = false))
+  }
+}
+
+
+function toggleDataCheckedValue (val) {
+  if (todos.filter(elem => elem.checked === val)) {
+    todos.map(elem => (elem.checked = !val))
+  } else {
+    todos.map(elem => (elem.checked = val))
+  }
+}
+
+
+
+
+//OLD//
+function filterElem (event) {
+  let filterValue = event.target.attributes['data-filter'].value
+  // let filterValue = event.srcElement.dataset.filter
+  // let allTodosforFilter = querySelectorAll('.todo-list li')
+  // allTodosforFilter.forEach(function (elem) {
+  // if (elem.classList.contains(filterValue) || filterValue == 'all') {
+  //   elem.classList.remove('hidden')
+  // } else {
+  //   clearDom()
+  // }
+
+  switch (filterValue) {
+    case 'completed':
+      filterDomActive()
+      filterTodos(filterValue, true)
+      // let completedTodos = todos.filter(elem => elem.checked == true)
+      // let completedElems = querySelectorAll('.todo-list li.completed')
+      // if (completedTodos.length !== 0 && completedElems.length === 0) {
+      //   completedTodos.map(elem => createToDoDom(elem))
+      // }
+      console.log('completed executed')
+      break
+    case 'active':
+      clearDom()
+      filterTodos(filterValue, false)
+      console.log('active executed')
+      break
+    case 'all':
+      clearDom()
+      filterDomActive()
+      todos.map(elem => createToDoDom(elem))
+      console.log('all executed')
+      break
+    default:
+      console.log('default executed')
+  }
+  // })
+}
+
+NEW//
+
+
+
+
+
+
+
+
+function toggleAll () {
+  let domTodos = querySelectorAll('.todo-list li')
+  let allInputs = querySelectorAll('.todo-list li input')
+
+  // Array.from(domTodos[1].children[0].children)[0].checked = true
+
+  let completedTodos = querySelectorAll('.todo-list li.completed')
+
+  if (domTodos.length !== completedTodos.length) {
+    domTodos.forEach(elem => elem.classList.add('completed'))
+    domTodos.forEach(elem => elem.classList.remove('active'))
+    allInputs.forEach(elem => (elem.checked = true))
+  } else {
+    domTodos.forEach(elem => elem.classList.remove('completed'))
+    domTodos.forEach(elem => elem.classList.add('active'))
+    allInputs.forEach(elem => (elem.checked = false))
+  }
+  console.log('domTodoInputValue', domTodoInputValue)
+}
+
+
+
+function checkWithRemainingTodos (event) {
+  let parentElem = event.target.parentNode.parentNode
+  if (event.target.nodeName === 'INPUT') {
+    checkToDoSecond(parentElem)
+  }
+  remainingToDos()
+  checkedData(event)
+  // checkToDo(event)
+}
+
+function checkToDo (event) {
+  console.log('checkDOM event', event, typeof event) // object
+  console.log('event.target', event.target)
+  console.log('2skdjchn:', event.target.parentNode.parentNode.className)
+  // console.log('hsdbc:', event.target.parentNode.className) //her zaman div class'i view veriyor
+  // let selfClass = event.target.parentNode.className
+  // let parentsClass = event.target.parentNode.parentNode.className
+  // if (selfClass === 'active') {
+  //   selfClass = 'completed'
+  //   event.target.parentNode.className = selfClass
+  // } else if (selfClass === 'completed') {
+  //   selfClass = 'active'
+  //   event.target.parentNode.className = selfClass}
+  if (
+    event.target.nodeName === 'INPUT' &&
+    event.target.parentNode.parentNode.className !== 'completed'
+  ) {
+    event.target.parentNode.parentNode.className = 'completed'
+  } else if (
+    event.target.nodeName === 'INPUT' &&
+    event.target.parentNode.parentNode.className === 'completed'
+  ) {
+    event.target.parentNode.parentNode.className = 'active'
+  }
+}
+
+function checkToDoSecond (elem) {
+  if (elem.className !== 'completed') {
+    elem.className = 'completed'
+  } else {
+    elem.className = 'active'
+  }
+}
+
+
+

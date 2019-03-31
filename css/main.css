@@ -1,0 +1,118 @@
+/* .all {
+    font-family: "Open Sans";
+    min-width: 400px;
+  } */
+  /* .title {
+    font-family: Raleway;
+    color: red;
+    opacity: 0.3;
+  } */
+
+  /* .todo-count,
+  .f2,
+  .f3,
+  #alltodos,
+  #completed,
+  #active {
+    display: inline-block;
+  } */
+  .todo-list {
+    padding: 0;
+    list-style: none;
+  }
+  /* label{
+    margin-left: 25px;
+    margin-right: 10px;
+  }
+  label, .listchecked {
+    cursor: pointer;
+  }
+  .listchecked {
+    display:none
+  }
+  label:before {
+    content: "\f096  ";
+  }
+  
+  .checked label {
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+  
+  .checked label:before {
+    content:"\2713  " ;
+  } */
+  
+  /* .btngroup {
+    color: red;
+    opacity: 0.6;
+    border-style: none;
+    background-color: rgba(0, 0, 0, 0);
+    visibility: hidden;
+    float: right; 
+  } */
+  li:hover > .btngroup {
+    visibility: visible;
+  }
+  /* BOX DESIGN */
+  /* .complete {
+    margin: 50px;
+  } */
+  .all {
+    border-style: none;
+    border-width: 0.5px;
+    border-color: grey;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  #footer {
+    color: grey;
+    font-size: smaller;
+    text-align: center;
+    /*If you have a <div> with "text-align:center;" then any text inside it will be centered with respect to the width of that container element. inline-block elements are treated as text for this purpose, so they will also be centered.*/
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  .todo-count {
+    float: left;
+  }
+  /* #alltodos, #active, #completed {
+    cursor:pointer;
+    border: 1px solid #e7b7cf;
+    border-radius: 5px;
+    padding: 0 5px 0 5px 
+  } */
+  .f3 {
+    float: right;
+    cursor:pointer;
+  }
+  .placeholder {
+    width: 90%;
+    border-style: none;
+    padding-top: 15px;
+    padding-bottom: 7px;
+  }
+  li {
+    border-top: 0.05px solid lightgrey;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  li:last-child {
+    border-bottom: 0.05px solid lightgrey;
+  }
+  
+  /* .submitbutton{
+    margin-left: 25px;
+  } */
+
+  .new-todo{
+    margin-left: 5px;
+    margin-top:15px;
+    border-style: none;
+    font-size: 15px;
+  }
+  input::placeholder {
+    opacity: .4;
+  }
+  
