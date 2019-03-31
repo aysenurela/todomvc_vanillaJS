@@ -136,3 +136,12 @@ function checkToDoSecond (elem) {
 
 
 
+
+function update (todo, checkValue) {
+    let updatedTodos = JSON.parse(localStorage.getItem("todos"))
+    let idx = find(todo)
+    updatedTodos[idx].checked= checkValue
+}
+
+
+

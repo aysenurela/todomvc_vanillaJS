@@ -45,6 +45,7 @@ let filterLi = querySelectorAll('.filters li a')
 togglebtn.addEventListener('click', toggleAllwithRemainingTodos)
 todoList.addEventListener('click', deleteToDo)
 todoList.addEventListener('click', checkWithRemainingTodos)
+
 inputEnter.addEventListener('keydown', applyEnter)
 clearButton.addEventListener('click', clearCompleted)
 for (let i = 0; i < filterElements.length; i++) {
@@ -57,6 +58,7 @@ for (let i = 0; i < filterElements.length; i++) {
 function starterPack () {
   renderToDos()
   remainingToDos()
+  findAll(todos)
 }
 starterPack()
 
@@ -72,21 +74,20 @@ function remainingToDos () {
 }
 
 function deleteToDo (event) {
-  removeToDofromDom(event)
-  removeToDofromArr(event)
+  if (event.target.classList.contains('destroy')) {
+    removeToDofromDom(event)
+    removeToDofromArr(event)
+    remove(event.target.previousElementSibling)
+  }
 }
 function removeToDofromDom (event) {
-  if (event.target.classList.contains('destroy')) {
-    todoList.removeChild(event.target.parentElement.parentElement)
-  }
+  todoList.removeChild(event.target.parentElement.parentElement)
 }
 function removeToDofromArr (event) {
-  if (event.target.classList.contains('destroy')) {
-    let idx = todos.findIndex(
-      item => item.id == event.target.previousElementSibling.id
-    )
-    todos.splice(idx, 1)
-  }
+  let idx = todos.findIndex(
+    item => item.id == event.target.previousElementSibling.id
+  )
+  todos.splice(idx, 1)
 }
 
 function clearCompleted () {
@@ -112,10 +113,12 @@ function checkWithRemainingTodos (event) {
   let parentElem = event.target.parentNode.parentNode
   if (event.target.nodeName === 'INPUT') {
     checkToDoSecond(parentElem)
+    checkedData(event)
+    update(event.target, event.target.checked)
   }
+  //
   remainingToDos()
-  checkedData(event)
-  // checkToDo(event)
+  console.log('check event:', event)
 }
 
 // function checkToDo (event) {
@@ -143,20 +146,27 @@ function checkWithRemainingTodos (event) {
 // }
 
 function checkToDoSecond (elem) {
-  if (elem.className !== 'completed') {
-    elem.className = 'completed'
+  if (!elem.classList.contains('completed')) {
+    elem.classList.add('completed')
+    elem.classList.remove('active')
   } else {
-    elem.className = 'active'
+    elem.classList.add('active')
+    elem.classList.remove('completed')
   }
 }
 
+console.log('todos', todos)
+
 function checkedData (event) {
-  let matchDatawithElem = todos.filter(function (elem) {
-    if (elem.id == event.target.id) {
-      return elem
-    }
-  })
-  matchDatawithElem.map(elem => (elem.checked = event.target.checked))
+  let indx = todos.findIndex(item => item.id == event.target.id)
+  if (todos[indx].checked == true) {
+    todos[indx].checked = false
+  } else {
+    todos[indx].checked = true
+  }
+
+  // let matchDatawithElem = todos.filter(elem => elem.id == event.target.id)
+  // matchDatawithElem.map(elem => (elem.checked = event.target.checked))
 }
 
 function filterOpt (event) {
@@ -290,5 +300,5 @@ function finalNewToDo () {
   createToDoDom(createToDo(enteredText))
   clearInput()
   remainingToDos()
-  console.log('todos:', todos)
+  save(createToDo(enteredText))
 }
