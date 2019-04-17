@@ -1,30 +1,4 @@
-let todos = [
-  {
-    id: 1,
-    text: '1asd',
-    checked: true
-  },
-  {
-    id: 2,
-    text: '2qwdasd',
-    checked: false
-  },
-  {
-    id: 3,
-    text: '3sdcdscds',
-    checked: false
-  },
-  {
-    id: 4,
-    text: '4fdsvdsv',
-    checked: true
-  },
-  {
-    id: 5,
-    text: '5asdas',
-    checked: false
-  }
-]
+let todos = findAll()
 
 // vanilla JS addEventListener() method can only listen for events on a single element so "querySelectorAll('sth').addEventListener" does not work
 
@@ -58,9 +32,26 @@ for (let i = 0; i < filterElements.length; i++) {
 function starterPack () {
   renderToDos()
   remainingToDos()
-  findAll(todos)
 }
 starterPack()
+
+// let textChange = querySelectorAll('.todo-list li label')
+// for (let i = 0; i < textChange.length; i++) {
+//   textChange[i].addEventListener('dblclick', changeText)
+// }
+
+// function changeText (event) {
+//   console.log('double click event:', event)
+
+//   event.target.parentElement.parentElement.classList.add('editing')
+//   // let newTextArea = document.createTextNode("<input class='edit'>")
+//   event.target.parentElement.parentElement.innerHTML += "<input class='edit'>"
+
+//   let newText = document.getElementsByClassName('edit')[0]
+//   console.log('newText', newText)
+// }
+
+// console.log('text change:', textChange)
 
 function renderToDos () {
   todos.reverse().map(function (todo) {
@@ -74,10 +65,11 @@ function remainingToDos () {
 }
 
 function deleteToDo (event) {
+  console.log('delete event:', event)
   if (event.target.classList.contains('destroy')) {
     removeToDofromDom(event)
     removeToDofromArr(event)
-    remove(event.target.previousElementSibling)
+    remove({ id: parseInt(event.target.previousElementSibling.id) })
   }
 }
 function removeToDofromDom (event) {
@@ -110,15 +102,19 @@ function removeTodoByFilter (selector) {
 // }
 
 function checkWithRemainingTodos (event) {
+  console.log('check event', event)
   let parentElem = event.target.parentNode.parentNode
   if (event.target.nodeName === 'INPUT') {
     checkToDoSecond(parentElem)
     checkedData(event)
-    update(event.target, event.target.checked)
+    console.log(event.target)
+    update({
+      id: parseInt(event.target.id),
+      checked: event.target.checked,
+      text: event.target.nextSibling.textContent
+    })
   }
-  //
   remainingToDos()
-  console.log('check event:', event)
 }
 
 // function checkToDo (event) {
@@ -155,8 +151,6 @@ function checkToDoSecond (elem) {
   }
 }
 
-console.log('todos', todos)
-
 function checkedData (event) {
   let indx = todos.findIndex(item => item.id == event.target.id)
   if (todos[indx].checked == true) {
@@ -164,7 +158,6 @@ function checkedData (event) {
   } else {
     todos[indx].checked = true
   }
-
   // let matchDatawithElem = todos.filter(elem => elem.id == event.target.id)
   // matchDatawithElem.map(elem => (elem.checked = event.target.checked))
 }
