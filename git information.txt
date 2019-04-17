@@ -1,0 +1,9 @@
+Figure 23. Work continues on iss53
+It’s worth noting here that the work you did in your hotfix 
+branch is not contained in the files in your iss53 branch. 
+If you need to pull it in, you can merge your master branch 
+into your iss53 branch by running git merge master, or you 
+can wait to integrate those changes until you decide to pull 
+the iss53 branch back into master later.
+
+https://git-scm.com/book/tr/v2/Git-Branching-Basic-Branching-and-Merging
