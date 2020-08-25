@@ -1,4 +1,4 @@
 firebase.json
 .firebaserc
-.firebase/
+.firebase/*
 /public
