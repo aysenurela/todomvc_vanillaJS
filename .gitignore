@@ -2,3 +2,6 @@ firebase.json
 .firebaserc
 .firebase/*
 /public
+.cache*
+/.firebase
+/.firebase/*
